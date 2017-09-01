@@ -120,17 +120,15 @@ divIf x =
 
 
 # 
+index 8 [1..42]   -- i == 8 
+index j (tail ys) -- 0 < j 
+index i xs        -- 0 <= i 
 
-bar1 = 
-     foo xs x <- error 
 
-bar2 
-     foo xs x 
-
-foo 
-foo []     x = 0 
-foo (x:_)  0 = x 
-foo (_:xs) i = foo xs (i-1)
+-- 0 < i <= length xs 
+index (x:xs) 1 = x
+index (x:xs) i = index xs (i-1)
+index xs     i = error "Out of bounds!" 
 
 In theory 
 How to solve exitential?
