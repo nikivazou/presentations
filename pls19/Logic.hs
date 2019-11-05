@@ -21,11 +21,11 @@ divTest = 42 `div` 10
  -}
 
 {-@
-φ :: p:(a -> a -> Bool) 
-  -> (x::a, y:a -> {v:() | p x y})
-  -> y:a -> (x::a, {v:() | p x y})
+φ :: p:(a -> b -> Bool) 
+  -> (x::a, y:b -> {v:() | p x y})
+  -> y:b -> (x::a, {v:() | p x y})
 @-}
-φ p (x, px) y = undefined 
+φ p x y = undefined 
 
 
 
@@ -39,7 +39,6 @@ divTest = 42 `div` 10
         -> Either (x::a, {v:() | p x}) (x::a, {v:() | q x}) 
   @-}
 ϕExists p q _ = undefined 
-
 
 
 
@@ -81,8 +80,7 @@ helper xs ys = const () (xs ++ ys)
 {-@ ϕind :: p:(Int -> Bool) 
          -> ({v:() | p 0},(n:Int -> {v:() | p (n-1)} -> {v:() | p n}))
          -> n:{Int | 0 <= n} -> {v:() | p n} @-}
-ϕind = undefined 
-
+ϕind p _ _ = undefined 
 
 
 
@@ -98,9 +96,9 @@ helper xs ys = const () (xs ++ ys)
 -- Signatures ----------------------------------------------------------------- 
 -------------------------------------------------------------------------------
 
-φ :: (a -> a -> Bool) 
-  -> (a, a -> ())
-  -> a -> (a, ())
+φ :: (a -> b -> Bool) 
+  -> (a, b -> ())
+  -> b -> (a, ())
 
 ϕExists :: (a -> Bool) -> (a -> Bool)
         -> (a, Either () ()) 
