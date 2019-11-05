@@ -25,7 +25,7 @@ divTest = 42 `div` 10
   -> (x::a, y:a -> {v:() | p x y})
   -> y:a -> (x::a, {v:() | p x y})
 @-}
-φ p (x, px) y = (x, px y) 
+φ p (x, px) y = undefined 
 
 
 
@@ -38,9 +38,7 @@ divTest = 42 `div` 10
         -> (x::a, Either {v:() | p x} {v:() | q x})
         -> Either (x::a, {v:() | p x}) (x::a, {v:() | q x}) 
   @-}
-ϕExists p q (x, Left px)  = Left (x, px)
-ϕExists p q (x, Right px) = Right (x, px)
-
+ϕExists p q _ = undefined 
 
 
 
@@ -52,8 +50,7 @@ divTest = 42 `div` 10
             -> (x:a -> ({v:() | p x}, {v:() | q x}))
             -> (x:a -> {v:() | p x}, x:a -> {v:() | q x}) 
 @-}
-ϕForall p q prop = ( \x -> case prop x of {(l,r) -> l}, 
-                     \x -> case prop x of {(l,r) -> r} )  
+ϕForall p q prop = undefined 
 
 
 
@@ -63,7 +60,7 @@ divTest = 42 `div` 10
 {- ∀xs.((∃ys. xs = ys ++ ys) ⇒ (∃n.length xs = n + n))  -}
 {-@ evenLen :: xs:[a] -> (ys::[a], {v:() | xs == ys ++ ys }) 
             -> (n::Int, {v:() | length xs == n + n}) @-}
-evenLen xs (ys, prop) = (length ys, helper ys ys) 
+evenLen xs (ys, prop) = undefined 
 
 
 
