@@ -1,19 +1,16 @@
 {-@ LIQUID "--reflection" @-}
+{-@ LIQUID "--ple" @-}
 module Deep where 
 
 import Prelude hiding ((++), reverse)
-import Language.Haskell.Liquid.ProofCombinators
+-- import Language.Haskell.Liquid.ProofCombinators
 {-@ infixr ++ @-}
-
-
 
 {-@ rightId :: xs:[a] -> { xs ++ [] = xs } @-}
 rightId :: [a] -> () 
-rightId []    = ()
-rightId (x:xs) = rightId xs 
+rightId [] = ()
+rightId (_:xs) = rightId xs  
 
-
-{-@ LIQUID "--ple" @-}
 
 
 
@@ -25,8 +22,9 @@ rightId (x:xs) = rightId xs
 {-@ assoc :: xs:[a] -> ys:[a] -> zs:[a] 
           -> { xs ++ (ys ++ zs) == (xs ++ ys) ++ zs } @-}
 assoc :: [a] -> [a] -> [a] -> ()
-assoc [] ys zs = ()
-assoc (x:xs) ys zs = assoc xs ys zs
+assoc [] _ _ = ()
+assoc (_:xs) ys zs = assoc xs ys zs    
+
 
 
 
@@ -36,23 +34,11 @@ assoc (x:xs) ys zs = assoc xs ys zs
 
 
 {-@ rewriteWith distributivity [assoc, rightId] @-}
-
-
 distributivity :: [a] -> [a] -> () 
 {-@ distributivity :: xs:[a] -> ys:[a] 
-                   -> { reverse (xs ++ ys) == reverse ys ++ reverse xs }  @-}
+                   -> { v:() | reverse (xs ++ ys) == reverse ys ++ reverse xs }  @-}
 distributivity [] _ = ()
-distributivity (x:xs) ys = distributivity xs ys
-
-
-
-
-
-
-
-
-
-
+distributivity (_:xs) ys = distributivity xs ys  
 
 
 
